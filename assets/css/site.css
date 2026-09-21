@@ -1,0 +1,904 @@
+/* ==========================================================================
+   Bonus Ledger NZ — site.css
+   One stylesheet, no JavaScript, no external fonts, no framework.
+
+   Palette is "ink and copper": a deep navy for structure and a warm copper
+   for action. Chosen so the single most important element on any page — the
+   CTA — is the only saturated warm colour on screen. The register is meant to
+   read as a financial publication rather than a casino.
+
+   Contrast: every text/background pair below meets WCAG AA at its size.
+   --mute on --paper is 5.9:1; --faint is used only for uppercase labels at
+   >=12px/600 where 3:1 is the applicable threshold.
+   ========================================================================== */
+
+:root{
+  /* ---- structure -------------------------------------------------- */
+  --paper:#FCFBF9;        /* page ground — warm white                 */
+  --card:#FFFFFF;         /* cards, table rows                        */
+  --haze:#F4F2ED;         /* alternate bands                          */
+  --line:#E4E0D8;         /* hairlines — 1px, never 2                 */
+  --line-hi:#CDC8BC;
+
+  /* ---- ink navy — structure, headers, dark bands ------------------ */
+  --navy:#131C2E;
+  --navy-2:#1C2942;
+  --navy-3:#2A3B5C;
+  --navy-ink:#E7EBF2;
+
+  /* ---- type ------------------------------------------------------- */
+  --ink:#141A24;          /* headings — 15.1:1 on paper               */
+  --text:#2C3440;         /* body — 10.6:1                            */
+  --mute:#5C6676;         /* secondary — 5.9:1                        */
+  --faint:#89919E;        /* uppercase labels only                    */
+
+  /* ---- action ----------------------------------------------------- */
+  --copper:#C2703A;       /* primary CTA                              */
+  --copper-hi:#E08B4F;
+  --copper-lo:#9A5528;
+  --link:#1F4E79;         /* links — 7.4:1 on paper                   */
+  --link-hi:#143659;
+
+  /* ---- accents — used together only in the hero data tiles --------- */
+  --amber:#E8A33C;
+  --teal:#3AA08C;
+  --violet:#8B7BC7;
+  --sky:#5B9BD5;
+
+  /* ---- semantic --------------------------------------------------- */
+  --yes:#1F6F52;          /* verified, licensed, pro                  */
+  --no:#B03A24;           /* con, warning, unverified                 */
+  --info:#1F4E79;         /* information only, never a CTA            */
+  --yes-bg:#E9F2EE;
+  --no-bg:#FBEDE9;
+  --info-bg:#EAF0F7;
+
+  /* ---- geometry --------------------------------------------------- */
+  --r:10px; --r-sm:5px; --r-pill:999px;
+  --wrap:1180px;
+  --shadow:0 1px 2px rgba(19,28,46,.05), 0 0 0 1px var(--line);
+  --shadow-lg:0 12px 32px -12px rgba(19,28,46,.22), 0 0 0 1px var(--line);
+  --ease:cubic-bezier(.2,.8,.3,1);
+
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --disp:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  margin:0;background:var(--paper);color:var(--text);
+  font:400 16.5px/1.68 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-wrap:break-word;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{color:var(--link-hi)}
+h1,h2,h3,h4,h5,h6{font-family:var(--disp);color:var(--ink);margin:0 0 .5em;line-height:1.2;letter-spacing:-.018em;font-weight:760}
+h1{font-size:clamp(2rem,1.35rem + 2.5vw,3.1rem);letter-spacing:-.028em;line-height:1.08}
+h2{font-size:clamp(1.5rem,1.18rem + 1.25vw,2.15rem);margin-top:0;letter-spacing:-.024em}
+h3{font-size:clamp(1.16rem,1.05rem + .45vw,1.38rem)}
+h4{font-size:1.04rem}
+p{margin:0 0 1.05em}
+ul,ol{margin:0 0 1.15em;padding-left:1.35em}
+li{margin-bottom:.45em}
+li::marker{color:var(--navy-3)}
+strong,b{font-weight:680;color:var(--ink)}
+a b,a strong{color:inherit}
+small{font-size:.85em}
+hr{border:0;border-top:1px solid var(--line);margin:2.2rem 0}
+code{font:500 .9em var(--mono);background:var(--haze);padding:.1em .38em;border-radius:4px}
+:focus-visible{outline:3px solid var(--copper);outline-offset:2px;border-radius:3px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.wrap--narrow{max-width:820px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--copper);color:#1A1200;padding:.7rem 1.1rem;font-weight:700;border-radius:0 0 var(--r-sm) 0}
+.skip:focus{left:0}
+
+/* ---------- age / disclosure strip ---------------------------------- */
+/* One line at every width. On phones the verbose words (.ts-lg) swap for the
+   compact ones (.ts-sm) — the same four disclosures, fewer characters — so the
+   strip never wraps to two rows and never needs to shrink below legibility. */
+.topstrip{background:var(--navy);color:var(--navy-ink);font-size:.78rem;letter-spacing:.005em}
+.topstrip .wrap{display:flex;align-items:center;justify-content:center;padding-top:.5rem;padding-bottom:.5rem;text-align:center}
+.topstrip .ts{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ts-sm{display:none}
+.topstrip b{color:#fff}
+.topstrip a{color:var(--copper-hi);text-decoration-thickness:1px}
+
+/* ---------- header --------------------------------------------------- */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(251,250,248,.94);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:1.2rem;min-height:66px}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:0 0 auto}
+/* The mark is a poker chip, drawn in CSS — no image request, same as before.
+   Four copper spots on a --navy-3 edge, an ink face, a hairline inner ring.
+   The edge tones are chosen to hold on both grounds the mark sits on: --navy-3
+   is clearly dark on --paper and clearly lighter than --navy in the footer, so
+   one rule serves the header and the footer without a dark-ground variant. */
+.brand-mark{position:relative;width:38px;height:38px;border-radius:50%;
+  background:
+    radial-gradient(circle,var(--navy) 0 54%,transparent 54%),
+    repeating-conic-gradient(from 22.5deg,var(--copper) 0 45deg,var(--navy-3) 45deg 90deg);
+  display:grid;place-items:center;color:#fff;font:800 15px/1 var(--disp);
+  letter-spacing:-.02em;flex:0 0 auto}
+/* Inner ring: the moulded step between a chip's face and its edge. */
+.brand-mark::after{content:"";position:absolute;inset:4px;border-radius:50%;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.26);pointer-events:none}
+.brand-txt{display:flex;flex-direction:column;line-height:1.05}
+.brand-word{font:800 1.16rem/1 var(--disp);color:var(--ink);letter-spacing:-.02em}
+/* The wordmark is the domain. The TLD is set back one step so the eye lands on
+   the name, not the suffix — --mute, not --faint, because this is not a label. */
+.brand-tld{color:var(--mute);font-weight:700}
+.brand-tag{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:700;margin-top:3px}
+.nav{margin-left:auto;display:flex;align-items:center;gap:.15rem;flex-wrap:wrap}
+.nav a{padding:.5rem .6rem;border-radius:var(--r-sm);color:var(--text);text-decoration:none;font-size:.905rem;font-weight:570;white-space:nowrap}
+.nav a:hover{background:var(--haze);color:var(--ink)}
+.nav a[aria-current]{color:var(--navy);background:var(--yes-bg);font-weight:700}
+/* ---------- nested nav: CSS-only dropdowns, no JS ------------------------- */
+.nav-grp{position:relative;display:inline-flex}
+.nav-grp > .nav-top{display:inline-flex;align-items:center;gap:.28rem}
+.nav-grp > .nav-top svg{width:9px;height:6px;opacity:.55;transition:transform .15s ease}
+.nav-grp:hover > .nav-top svg,.nav-grp:focus-within > .nav-top svg{transform:rotate(180deg);opacity:.9}
+.nav-top--here{color:var(--navy);font-weight:700}
+.nav-sub{
+  position:absolute;top:calc(100% + .3rem);left:0;z-index:200;
+  display:flex;flex-direction:column;min-width:228px;padding:.4rem;
+  background:var(--card,#fff);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:0 12px 30px rgba(0,0,0,.14);
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .14s ease,transform .14s ease,visibility .14s;
+}
+.nav-grp:hover > .nav-sub,.nav-grp:focus-within > .nav-sub{opacity:1;visibility:visible;transform:none}
+.nav-sub a{padding:.44rem .6rem;font-size:.875rem;font-weight:520;border-radius:var(--r-sm);white-space:nowrap}
+.nav-sub a:hover{background:var(--haze)}
+/* The reviews menu carries 20 links, so it runs in two columns and stays on screen. */
+.nav-sub--wide{
+  display:grid;grid-template-columns:1fr 1fr;gap:0 .25rem;
+  min-width:420px;right:0;left:auto;
+  max-height:min(70vh,520px);overflow-y:auto;
+}
+/* Hover leaves a dead gap between trigger and panel; this bridges it. */
+.nav-grp::after{content:"";position:absolute;top:100%;left:0;right:0;height:.45rem}
+@media(prefers-reduced-motion:reduce){.nav-sub{transition:none}.nav-grp > .nav-top svg{transition:none}}
+.nav .nav-cta{background:var(--copper);color:#1A1200;font-weight:750;padding:.52rem .95rem;border-radius:var(--r-pill);margin-left:.35rem}
+.nav .nav-cta:hover{background:var(--copper-hi);color:#1A1200}
+@media(max-width:1040px){
+  .hdr-in{flex-wrap:wrap;padding-top:.6rem;padding-bottom:.6rem;min-height:0}
+  .nav{margin-left:0;width:100%;overflow-x:auto;padding-bottom:.2rem;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .nav::-webkit-scrollbar{height:0}
+}
+
+/* ---------- hero ------------------------------------------------------ */
+/* ---------- hero: navy data panel ----------------------------------------
+   Deep navy ground with a copper-to-amber sweep across the top right, a fine
+   diagonal weave for texture, and the statistics set as colour-coded data
+   tiles. The point is that the hero should look like the front of a data
+   publication: confident colour, but every hue carries a meaning rather than
+   being decoration.
+   -------------------------------------------------------------------------- */
+.hero{
+  background:
+    radial-gradient(120% 150% at 88% -20%, rgba(232,163,60,.34) 0%, rgba(194,112,58,.22) 28%, transparent 62%),
+    radial-gradient(90% 120% at 8% 110%, rgba(58,160,140,.22) 0%, transparent 55%),
+    linear-gradient(158deg, var(--navy-2) 0%, var(--navy) 55%, #0D1420 100%);
+  color:var(--navy-ink);position:relative;overflow:hidden;
+}
+.hero{padding:3.4rem 0 2.6rem}
+/* Diagonal weave — 1px lines at 2% so it reads as texture, not pattern. */
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.028) 0 1px,transparent 1px 11px);
+}
+/* A copper hairline along the very top, picking up the header. */
+.hero::after,.lede-a::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--copper) 0%,var(--amber) 46%,transparent 88%);
+}
+.hero-in{position:relative;z-index:1;max-width:940px}
+.hero h1,.lede-a h1{
+  color:#fff;margin-bottom:.34em;font-size:clamp(2rem,4.4vw,3.15rem);
+  letter-spacing:-.033em;line-height:1.06;
+  text-shadow:0 1px 0 rgba(0,0,0,.18);
+}
+.hero p,.hero-lead p,.lede-lead,.lede-lead p{color:#CBD5E6;font-size:1.12rem;max-width:64ch}
+.hero p b,.hero-lead b,.lede-lead b,.hero-lead strong,.lede-lead strong{color:#fff}
+.hero a,.lede-a a,.lede-b a{color:var(--amber)}
+.hero a:hover,.lede-a a:hover,.lede-b a:hover{color:#F6C070}
+
+/* Eyebrow becomes a copper pill rather than bare uppercase type. */
+.hero .eyebrow,.lede-a .eyebrow{
+  display:inline-block;color:#FFE2BE;background:rgba(194,112,58,.26);
+  border:1px solid rgba(232,163,60,.45);border-radius:var(--r-pill);
+  padding:.34rem .8rem;margin-bottom:1rem;letter-spacing:.1em;
+}
+
+/* ---- the data tiles: each statistic gets its own accent ---------------- */
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  gap:.75rem;margin-top:1.9rem}
+.hero-stat{
+  position:relative;padding:.9rem 1rem .95rem;border-radius:var(--r);
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.hero-stat::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--copper)}
+.hero-stat::after{content:"";position:absolute;inset:auto -30% -70% 40%;height:130%;
+  background:radial-gradient(closest-side,rgba(194,112,58,.30),transparent 72%);pointer-events:none}
+.hero-stat:nth-child(2)::before{background:var(--amber)}
+.hero-stat:nth-child(2)::after{background:radial-gradient(closest-side,rgba(232,163,60,.30),transparent 72%)}
+.hero-stat:nth-child(3)::before{background:var(--teal)}
+.hero-stat:nth-child(3)::after{background:radial-gradient(closest-side,rgba(58,160,140,.30),transparent 72%)}
+.hero-stat:nth-child(4)::before{background:var(--sky)}
+.hero-stat:nth-child(4)::after{background:radial-gradient(closest-side,rgba(91,155,213,.28),transparent 72%)}
+.hero-stat b{position:relative;z-index:1;display:block;font:800 1.52rem/1.1 var(--disp);color:#fff;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero-stat span{position:relative;z-index:1;display:block;font-size:.68rem;color:#AEBBD0;
+  margin-top:.34rem;line-height:1.3;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+@media(max-width:620px){.hero-stats{grid-template-columns:1fr 1fr;gap:.5rem}}
+
+.eyebrow{display:inline-block;font-size:.7rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--copper-lo);margin-bottom:.75rem}
+
+/* ---------- hero top-offer strip ------------------------------------------
+   One sponsored link carrying the headline bonus, sitting directly under the
+   H1 so an offer is on screen the moment the page opens. Hidden below 1100px:
+   the mobile card already puts the offer high, and this would push the table
+   under the fold.
+   -------------------------------------------------------------------------- */
+.tof{
+  display:none;align-items:center;gap:1rem;margin:1.15rem 0 0;padding:.7rem .8rem .7rem 1rem;
+  border-radius:14px;text-decoration:none;
+  background:linear-gradient(120deg,rgba(232,163,60,.22),rgba(194,112,58,.14) 60%,rgba(255,255,255,.05));
+  border:1px solid rgba(232,163,60,.5);
+  box-shadow:0 8px 26px -14px rgba(232,163,60,.55);
+  transition:border-color .16s var(--ease),transform .16s var(--ease),box-shadow .16s var(--ease);
+}
+@media(min-width:1101px){.tof{display:flex}}
+.tof:hover{border-color:var(--amber);transform:translateY(-1px);
+  box-shadow:0 12px 30px -12px rgba(232,163,60,.7)}
+.tof-tag{flex:0 0 auto;font:800 .625rem/1 var(--sans);text-transform:uppercase;letter-spacing:.13em;
+  color:#FFD9A6;padding:.4rem .6rem;border-radius:var(--r-pill);
+  background:rgba(0,0,0,.28);border:1px solid rgba(232,163,60,.35)}
+.tof-brand{flex:0 0 auto;display:grid;place-items:center;background:#fff;border-radius:8px;
+  padding:.3rem .5rem;height:38px;width:96px}
+.tof-brand img{max-height:26px;max-width:100%;width:auto;object-fit:contain}
+.tof-bonus{flex:1 1 auto;font:800 1.24rem/1.2 var(--disp);color:#fff;letter-spacing:-.02em}
+.tof-cta{flex:0 0 auto;font:800 1.06rem/1 var(--sans);color:#1A1200;background:var(--amber);
+  padding:.88rem 1.5rem;border-radius:var(--r-pill);white-space:nowrap}
+.tof:hover .tof-cta{background:#F6C070}
+@media(prefers-reduced-motion:reduce){.tof{transition:none}.tof:hover{transform:none}}
+/* ---------- byline / trust ------------------------------------------- */
+.byline{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;font-size:.855rem;color:var(--mute);margin:1.4rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.15)}
+.hero .byline,.lede-y .byline,.lede-b .byline{color:#AEBBD0}
+.hero .byline a,.lede-y .byline a,.lede-b .byline a{color:#E3EAF5}
+.byline--light{border-top-color:var(--line);color:var(--mute)}
+.byline--light a{color:var(--link)}
+.byline--light{border-top-color:var(--line);color:var(--mute)}
+.byline img,.byline-av{width:34px;height:34px;border-radius:50%;background:var(--copper);display:grid;place-items:center;color:#fff;font:700 12px/1 var(--disp);flex:0 0 auto}
+/* Author photos: square source, circular mask, cropped rather than squashed.
+   The ring keeps them legible against both the navy hero and a white card. */
+img.byline-av,img.av{object-fit:cover;background:var(--navy-2)}
+img.byline-av{box-shadow:0 0 0 1px rgba(255,255,255,.28)}
+.byline--light img.byline-av,img.av{box-shadow:0 0 0 1px var(--line)}
+.byline a{font-weight:650}
+.byline .sep{opacity:.45}
+
+/* ---------- sections -------------------------------------------------- */
+.sec{padding:2.9rem 0}
+.sec--haze{background:var(--haze);border-block:1px solid var(--line)}
+.sec--tight{padding:2rem 0}
+.sec-head{max-width:76ch;margin-bottom:1.5rem}
+.sec-head p{color:var(--mute);font-size:1.03rem;margin-bottom:0}
+.prose{max-width:76ch}
+.prose h3{margin-top:1.9rem}
+.prose h4{margin-top:1.5rem;color:var(--navy)}
+
+/* ---------- buttons ---------------------------------------------------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.42rem;padding:.72rem 1.3rem;border-radius:var(--r-pill);background:var(--copper);color:#1A1200;font:750 .945rem/1 var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .16s var(--ease),transform .16s var(--ease);text-align:center}
+.btn:hover{background:var(--copper-hi);color:#1A1200;transform:translateY(-1px)}
+.btn:active{transform:none}
+.btn--sm{padding:.54rem .95rem;font-size:.86rem}
+.btn--wide{width:100%}
+.btn--ghost{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy-3)}
+.btn--ghost:hover{background:var(--navy);color:#fff}
+.btn--dark{background:var(--navy);color:#fff}
+.btn--dark:hover{background:var(--navy-2);color:#fff}
+
+/* Desktop CTAs. The stylesheet is desktop-first, so every rule above is the
+   large-screen case and the max-width blocks below tune mobile down. This one
+   is the exception: min-width, so growing the CTA here cannot leak into the
+   mobile sizes that were measured against a 390px viewport. 941px is the
+   leaderboard's own breakpoint — above it the row is a 5-column grid with a
+   fixed CTA column, so the button has room the stacked layout does not. */
+@media(min-width:941px){
+  .btn{padding:1.02rem 2rem;font-size:1.075rem;border-radius:var(--r-pill)}
+  .btn--sm{padding:.82rem 1.4rem;font-size:1rem}
+
+  /* The leaderboard button is the page's money CTA: biggest of the lot, and
+     heavier, so it outweighs the offer panel beside it. */
+  .lb-cta .btn{padding:1.06rem 1.2rem;font-size:1.12rem;font-weight:800;letter-spacing:-.01em}
+  .lb-terms{font-size:.7rem}
+  .lb-review{font-size:.84rem}
+
+  .nav .nav-cta{padding:.64rem 1.2rem;font-size:.985rem}
+}
+
+/* ---------- leaderboard (the primary toplist) -------------------------- */
+.lb{border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden;box-shadow:var(--shadow)}
+.quote{margin:1.4rem 0;padding:1rem 1.3rem;border-left:3px solid var(--gold,#C9A227);background:rgba(0,0,0,.14);border-radius:0 var(--r) var(--r) 0}
+.quote p{margin:0;font-size:1.02rem;line-height:1.7;font-style:italic}
+.quote cite{display:block;margin-top:.6rem;font-size:.8rem;font-style:normal;color:var(--mute);letter-spacing:.02em}
+.lb-note{font-size:.78rem;line-height:1.65;color:var(--mute);padding:.85rem 1.05rem;border-top:1px solid var(--line);background:rgba(0,0,0,.14);margin:0}
+.lb-note b{color:var(--faint)}
+.lb-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.lb-head{display:grid;grid-template-columns:44px 150px 1fr 118px 200px;gap:1rem;align-items:center;padding:.62rem 1.05rem;background:var(--navy);color:#BFD6CE;font-size:.68rem;text-transform:uppercase;letter-spacing:.11em;font-weight:800}
+.lb-row{display:grid;grid-template-columns:44px 150px 1fr 118px 200px;gap:1rem;align-items:center;padding:1.05rem;border-top:1px solid var(--line);position:relative;background:var(--card)}
+.lb-row:first-child{border-top:0}
+.lb-row:nth-child(even){background:#FCFCFA}
+.lb-row--top{background:linear-gradient(90deg,#FFF9EC,var(--card) 62%)}
+.lb-row--top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--copper)}
+.lb-rank{font:800 1.12rem/1 var(--disp);color:var(--navy);text-align:center}
+.lb-logo{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);height:66px;display:grid;place-items:center;padding:.5rem}
+.lb-logo img{max-height:50px;max-width:100%;width:auto;object-fit:contain}
+.lb-brand .lb-name{font:750 1.03rem/1.25 var(--disp);color:var(--ink);margin:0 0 .2rem}
+.lb-brand .lb-name a{color:inherit;text-decoration:none}
+.lb-brand .lb-name a:hover{color:var(--link)}
+.lb-sub{font-size:.83rem;color:var(--mute);margin:0 0 .4rem;line-height:1.45}
+/* The welcome offer is the reason the row exists, so it is the loudest thing
+   in it after the CTA: a tinted panel, oversized type, its own label. */
+.lb-bonus{
+  margin:.5rem 0 0;padding:.62rem .8rem .58rem;border-radius:10px;
+  background:linear-gradient(135deg,rgba(232,163,60,.16),rgba(194,112,58,.09));
+  border:1px solid rgba(194,112,58,.42);
+  font:800 1.12rem/1.28 var(--disp);color:var(--ink);letter-spacing:-.015em}
+.lb-bonus b{display:block;font:800 .655rem/1 var(--sans);text-transform:uppercase;
+  letter-spacing:.12em;color:var(--copper-lo);margin-bottom:.34rem}
+.lb-bonus b::before{content:"\2022  ";color:var(--amber)}
+.lb-row--top .lb-bonus{
+  background:linear-gradient(135deg,rgba(232,163,60,.26),rgba(194,112,58,.15));
+  border-color:rgba(194,112,58,.6);font-size:1.2rem}
+.lb-claim{display:none}
+/* Supporting detail steps back so the offer carries the row. */
+.lb-sub{font-size:.8rem}
+.lb-meta{margin-top:.4rem;opacity:.85}
+.lb-meta{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.45rem}
+.lb-badge{margin:0 0 .5rem}
+.lb-score{text-align:center}
+.lb-score-top{font:800 1.52rem/1 var(--disp);color:var(--ink);letter-spacing:-.03em}
+.lb-score-top span{font-size:.72rem;color:var(--faint);font-weight:700}
+.lb-bar{height:4px;border-radius:2px;background:var(--line);margin-top:.45rem;overflow:hidden}
+.lb-bar i{display:block;height:100%;background:var(--yes);border-radius:2px}
+.lb-cta{display:flex;flex-direction:column;gap:.38rem}
+.lb-terms{font-size:.665rem;color:var(--faint);text-align:center;line-height:1.35}
+.lb-review{font-size:.78rem;text-align:center}
+@media(max-width:940px){
+  .lb-head{display:none}
+  .lb-row{grid-template-columns:38px 1fr;grid-template-areas:"rank logo" "brand brand" "score score" "cta cta";gap:.75rem 1rem;padding:1.05rem}
+  .lb-rank{grid-area:rank;text-align:left}
+  .lb-logo{grid-area:logo;height:56px;justify-self:start;padding:.4rem .7rem;min-width:140px}
+  .lb-brand{grid-area:brand}
+  .lb-score{grid-area:score;display:flex;align-items:center;gap:.7rem;text-align:left}
+  .lb-score .lb-bar{flex:1;margin-top:0}
+  .lb-cta{grid-area:cta}
+}
+
+/* ---------- chips ------------------------------------------------------ */
+.chip{display:inline-flex;align-items:center;gap:.28rem;font-size:.7rem;font-weight:700;padding:.22rem .55rem;border-radius:var(--r-pill);background:var(--haze);color:var(--mute);border:1px solid var(--line);line-height:1.5;white-space:nowrap}
+.chip--yes{background:var(--yes-bg);color:var(--yes);border-color:#BFE0CF}
+.chip--no{background:var(--no-bg);color:var(--no);border-color:#EFC9C0}
+.chip--info{background:var(--info-bg);color:var(--info);border-color:#C4D8E8}
+.chip--gold{background:#FFF3DA;color:var(--copper-lo);border-color:#F3DCAE}
+
+/* ---------- tables ----------------------------------------------------- */
+.tw{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--line);border-radius:var(--r);background:var(--card);-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.895rem;min-width:540px}
+caption{caption-side:top;text-align:left;padding:.85rem 1rem;font-size:.82rem;color:var(--mute);border-bottom:1px solid var(--line);background:var(--haze)}
+th,td{padding:.7rem .85rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--navy);color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.075em;font-weight:800;border-bottom:0;position:sticky;top:0}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:#FCFCFA}
+td b,th b{color:var(--ink)}
+.t-num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.86em}
+.t-logo{display:flex;align-items:center;gap:.55rem;font-weight:650;color:var(--ink)}
+.t-logo img{width:30px;height:30px;object-fit:contain;border-radius:4px;background:#fff;border:1px solid var(--line);padding:2px;flex:0 0 auto}
+
+/* ---------- cards / grids ---------------------------------------------- */
+.grid{display:grid;gap:1.05rem}
+.grid--2{grid-template-columns:repeat(auto-fit,minmax(288px,1fr))}
+.grid--3{grid-template-columns:repeat(auto-fit,minmax(252px,1fr))}
+.grid--4{grid-template-columns:repeat(auto-fit,minmax(206px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow)}
+.card h3{font-size:1.08rem;margin-bottom:.4rem}
+.card p{font-size:.92rem;color:var(--mute);margin-bottom:0}
+.card p + p{margin-top:.7rem}
+a.card{text-decoration:none;display:block;transition:box-shadow .18s var(--ease),transform .18s var(--ease)}
+a.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+a.card h3{color:var(--link)}
+.card-ic{width:38px;height:38px;border-radius:9px;background:var(--yes-bg);color:var(--navy);display:grid;place-items:center;margin-bottom:.8rem}
+.card-ic svg{width:20px;height:20px}
+.card-more{display:inline-block;margin-top:.8rem;font-size:.86rem;font-weight:700;color:var(--link)}
+
+/* ---------- key facts --------------------------------------------------- */
+.keyfacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:1.5rem}
+.keyfact{background:var(--card);padding:.95rem 1.05rem}
+.keyfact b{display:block;font:800 1.24rem/1.15 var(--disp);color:var(--ink);letter-spacing:-.025em}
+.keyfact span{display:block;font-size:.735rem;text-transform:uppercase;letter-spacing:.075em;color:var(--faint);font-weight:750;margin-top:.3rem}
+
+/* ---------- callouts ----------------------------------------------------- */
+.note{border-left:4px solid var(--info);background:var(--info-bg);padding:1rem 1.15rem;border-radius:0 var(--r-sm) var(--r-sm) 0;margin:0 0 1.4rem;font-size:.94rem}
+.note--warn{border-left-color:var(--no);background:var(--no-bg)}
+.note--ok{border-left-color:var(--yes);background:var(--yes-bg)}
+.note--gold{border-left-color:var(--copper);background:#FFF8EA}
+.note p:last-child{margin-bottom:0}
+.note h4{margin:0 0 .4rem;font-size:.97rem;color:var(--ink)}
+
+/* ---------- pros / cons --------------------------------------------------- */
+.pc{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:1rem;margin-bottom:1.5rem}
+.pc-col{border:1px solid var(--line);border-radius:var(--r);padding:1.05rem 1.15rem;background:var(--card)}
+.pc-col h4{margin:0 0 .6rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;font-weight:800}
+.pc-pro h4{color:var(--yes)}
+.pc-con h4{color:var(--no)}
+.pc-col ul{list-style:none;padding:0;margin:0;font-size:.9rem}
+.pc-col li{padding-left:1.5rem;position:relative;margin-bottom:.5rem;line-height:1.5}
+.pc-pro li::before{content:"✓";position:absolute;left:0;color:var(--yes);font-weight:800}
+.pc-con li::before{content:"×";position:absolute;left:.15rem;color:var(--no);font-weight:800;font-size:1.1em}
+
+/* ---------- FAQ ------------------------------------------------------------ */
+.faq{border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden;box-shadow:var(--shadow)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:first-child{border-top:0}
+.faq summary{padding:1rem 1.2rem;font-weight:680;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:700 1.35rem/1 var(--disp);color:var(--navy-3);flex:0 0 auto;transition:transform .18s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{background:var(--haze)}
+.faq-body{padding:0 1.2rem 1.15rem;font-size:.95rem;color:var(--text)}
+.faq-body p:last-child{margin-bottom:0}
+
+/* ---------- author box -------------------------------------------------------- */
+.authorbox{display:flex;gap:1.15rem;align-items:flex-start;border:1px solid var(--line);border-radius:var(--r);background:var(--card);padding:1.35rem;box-shadow:var(--shadow)}
+.authorbox .av{width:62px;height:62px;border-radius:50%;object-fit:cover;background:linear-gradient(145deg,var(--navy-3),var(--navy));color:#fff;display:grid;place-items:center;font:800 20px/1 var(--disp);flex:0 0 auto}
+.authorbox h3{margin:0 0 .12rem;font-size:1.06rem}
+.authorbox .role{font-size:.775rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:750;margin-bottom:.55rem}
+.authorbox p{font-size:.9rem;color:var(--mute);margin-bottom:.5rem}
+.authorbox p:last-child{margin-bottom:0}
+
+/* ---------- steps ---------------------------------------------------------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 1.5rem}
+.steps li{counter-increment:s;position:relative;padding:0 0 1.15rem 3rem;border-left:2px solid var(--line);margin-left:1rem}
+.steps li:last-child{border-left-color:transparent;padding-bottom:0}
+.steps li::before{content:counter(s);position:absolute;left:-1.02rem;top:-.1rem;width:2rem;height:2rem;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 .84rem/1 var(--disp)}
+.steps h4{margin:.15rem 0 .3rem;font-size:1rem}
+.steps p{font-size:.93rem;margin-bottom:0;color:var(--mute)}
+
+/* ---------- timeline ------------------------------------------------------- */
+.tl{list-style:none;padding:0;margin:0 0 1.5rem}
+.tl li{display:grid;grid-template-columns:118px 1fr;gap:1.1rem;padding:.9rem 0;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:0}
+.tl-date{font:750 .83rem/1.4 var(--mono);color:var(--navy)}
+.tl-date em{display:block;font-style:normal;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-top:.2rem}
+.tl-done .tl-date em{color:var(--yes)}
+.tl-next .tl-date em{color:var(--copper-lo)}
+.tl-up .tl-date em{color:var(--faint)}
+.tl h4{margin:0 0 .22rem;font-size:.99rem}
+.tl p{margin:0;font-size:.9rem;color:var(--mute)}
+@media(max-width:560px){.tl li{grid-template-columns:1fr;gap:.3rem}}
+
+/* ---------- jump nav ------------------------------------------------------- */
+.jump{display:flex;gap:.4rem;flex-wrap:wrap;padding:.95rem 0;margin-bottom:1.6rem;border-bottom:1px solid var(--line)}
+.jump a{font-size:.83rem;font-weight:650;padding:.34rem .72rem;border-radius:var(--r-pill);background:var(--haze);color:var(--text);text-decoration:none;border:1px solid var(--line)}
+.jump a:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- breadcrumbs ---------------------------------------------------- */
+.crumbs{font-size:.8rem;color:var(--mute);padding:.85rem 0 0}
+.crumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:0}
+.crumbs li::after{content:"/";margin-left:.4rem;color:var(--line-hi)}
+.crumbs li:last-child::after{content:""}
+.crumbs li{margin:0}
+
+/* ---------- review header --------------------------------------------------- */
+.rvh{display:grid;grid-template-columns:132px 1fr auto;gap:1.5rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem;box-shadow:var(--shadow);margin-bottom:1.6rem}
+.rvh-logo{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);height:92px;display:grid;place-items:center;padding:.7rem}
+.rvh-logo img{max-height:70px;max-width:100%;width:auto;object-fit:contain}
+.rvh h1{margin:0 0 .3rem;font-size:clamp(1.6rem,1.3rem + 1.2vw,2.3rem)}
+.rvh-score{text-align:center;min-width:112px}
+.rvh-score b{display:block;font:800 2.5rem/1 var(--disp);color:var(--ink);letter-spacing:-.04em}
+.rvh-score span{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--faint);font-weight:800}
+@media(max-width:780px){.rvh{grid-template-columns:100px 1fr;gap:1rem}.rvh-score{grid-column:1/-1;display:flex;align-items:baseline;gap:.6rem;text-align:left}}
+
+/* ---------- score bars -------------------------------------------------------- */
+.scores{display:grid;gap:.75rem;margin-bottom:1.5rem}
+.score-row{display:grid;grid-template-columns:172px 1fr 52px;gap:.9rem;align-items:center;font-size:.9rem}
+.score-row .track{height:9px;background:var(--haze);border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.score-row .track i{display:block;height:100%;background:linear-gradient(90deg,var(--navy-3),var(--yes));border-radius:5px}
+.score-row b{font-family:var(--mono);font-size:.88rem;text-align:right;color:var(--ink)}
+@media(max-width:560px){.score-row{grid-template-columns:1fr 44px;grid-template-areas:"label label" "track val"}.score-row span:first-child{grid-area:label}.score-row .track{grid-area:track}.score-row b{grid-area:val}}
+
+/* ---------- form ----------------------------------------------------------- */
+.form{display:grid;gap:1rem;max-width:560px}
+.field label{display:block;font-size:.83rem;font-weight:700;color:var(--ink);margin-bottom:.32rem}
+.field input,.field select,.field textarea{width:100%;padding:.68rem .85rem;border:1px solid var(--line-hi);border-radius:var(--r-sm);font:400 .97rem var(--sans);background:var(--card);color:var(--text)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy-3);outline:2px solid rgba(26,101,83,.18);outline-offset:0}
+.field small{display:block;color:var(--mute);font-size:.79rem;margin-top:.28rem}
+
+/* ---------- footer ----------------------------------------------------------- */
+.foot{background:var(--navy);color:#B6CDC5;padding:3rem 0 1.5rem;margin-top:3.2rem;font-size:.9rem}
+.foot a{color:#DCEAE5;text-decoration:none}
+.foot a:hover{color:var(--copper-hi);text-decoration:underline}
+.foot-top{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.12)}
+@media(max-width:860px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot-top{grid-template-columns:1fr}}
+.foot-about p{color:#9DB8AF;font-size:.875rem;max-width:42ch}
+.foot .brand-word{color:#fff}
+.foot .brand-tld{color:#9DB8AF}
+.foot .brand-tag{color:#7F9C93}
+.foot-col h4{color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.11em;margin-bottom:.85rem;font-weight:800}
+.foot-col ul{list-style:none;padding:0;margin:0}
+.foot-col li{margin-bottom:.48rem;font-size:.875rem}
+.foot-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem}
+.foot-badge{border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);padding:.3rem .6rem;font-size:.68rem;font-weight:800;letter-spacing:.05em;color:#DCEAE5;text-transform:uppercase}
+.foot-bot{padding-top:1.4rem;display:flex;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;font-size:.8rem;color:#8FAAA1}
+.badge18{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid var(--copper);color:var(--copper-hi);font:800 .72rem/1 var(--disp);flex:0 0 auto}
+.disc{font-size:.8rem;color:#8FAAA1;margin-top:1.2rem;line-height:1.6}
+
+/* ---------- misc --------------------------------------------------------------- */
+.updated{font-size:.8rem;color:var(--mute)}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:1.8rem}
+.toc h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;color:var(--faint);font-weight:800}
+.toc ol{margin:0;padding-left:1.2rem;font-size:.92rem;columns:2;column-gap:2rem}
+@media(max-width:620px){.toc ol{columns:1}}
+.toc li{margin-bottom:.34rem;break-inside:avoid}
+.pill-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.paylist{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0 0}
+.pay{font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:var(--r-sm);background:var(--haze);color:var(--mute);border:1px solid var(--line)}
+.verdict{border:1px solid var(--line);border-left:4px solid var(--copper);background:#FFFCF5;border-radius:0 var(--r) var(--r) 0;padding:1.2rem 1.35rem;margin-bottom:1.6rem}
+.verdict h3{margin-top:0;font-size:1.05rem}
+.verdict p:last-child{margin-bottom:0}
+@media print{.hdr,.foot,.topstrip,.jump,.lb-cta{display:none}body{font-size:11pt}}
+
+/* ==========================================================================
+   The lede: hero + toplist as one flex column.
+
+   The mobile fold is the whole point. Measured on a 393x852 viewport, the old
+   layout put the leaderboard at 1,766px — eleven screens of scrolling before
+   the reader saw a single casino. Splitting the hero into a headline block
+   (.lede-a) and a supporting block (.lede-b) lets flex `order` drop the
+   supporting copy BELOW the table on small screens, without duplicating any
+   markup or touching the desktop design.
+
+   The affiliate table sits directly under the hero on every page that has one,
+   and the disclosures and jump nav sit directly under the table.
+
+   Desktop:  a (headline) -> b (lead + stats) -> c (toplist) -> d (disclosure + jump)
+   Mobile:   a (headline) -> c (toplist)      -> b           -> d
+
+   Mobile keeps the table above the hero's supporting copy so that the H1,
+   byline, toplist H2, table and first CTA all clear the fold. The disclosure
+   still follows the table in both.
+   ========================================================================== */
+/* One continuous hero. The base gradient sits on the .lede wrapper so it runs
+   unbroken behind the H1 block, the lead copy and the byline instead of
+   stopping at the H1. The radial glows and the weave go on ::before, anchored
+   to the top and masked out below, because a radial sized to this whole
+   element (which contains the full leaderboard) would be washed out.
+   .lede-c and .lede-d are opaque and sit above it, so the gradient is only
+   ever visible through the three navy blocks. */
+.lede{display:flex;flex-direction:column;position:relative;isolation:isolate;
+  background:linear-gradient(158deg,var(--navy-2) 0%,var(--navy) 42%,#0D1420 72%)}
+.lede::before{
+  content:"";position:absolute;top:0;left:0;right:0;z-index:0;pointer-events:none;
+  height:clamp(560px,82vh,940px);
+  background:
+    radial-gradient(120% 150% at 88% -20%, rgba(232,163,60,.34) 0%, rgba(194,112,58,.22) 28%, transparent 62%),
+    radial-gradient(90% 120% at 8% 108%, rgba(58,160,140,.22) 0%, transparent 55%),
+    repeating-linear-gradient(135deg,rgba(255,255,255,.028) 0 1px,transparent 1px 11px);
+  -webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 62%,transparent 100%);
+}
+.lede-a{order:1}
+.lede-b{order:2}
+.lede-y{order:3}
+.lede-c{order:4}
+.lede-d{order:5}
+
+/* a (H1), b (lead + stats) and y (byline) are three slices of one hero. They
+   paint nothing themselves — the wrapper does — so there is no seam between
+   them at any height. */
+.lede-a,.lede-b,.lede-y{background:transparent;color:var(--navy-ink);
+  position:relative;z-index:1}
+.lede-a{padding:3.4rem 0 1.15rem}
+.lede-b{padding:0 0 1.3rem}
+.lede-y{padding:0 0 1.9rem;border-bottom:1px solid rgba(255,255,255,.12)}
+.lede-y .hero-in{position:relative;z-index:1;max-width:940px}
+/* The lead now sits above the byline, so the byline keeps its own hairline. */
+.lede-y .byline{margin-top:0}
+.lede-a .hero-in,.lede-b .hero-in{position:relative;z-index:1;max-width:940px}
+.lede-lead{margin:0}
+.lede-b .byline{border-top-color:rgba(255,255,255,.14)}
+.lede-c{padding:2rem 0 1.3rem;background:var(--paper);position:relative;z-index:2}
+.lede-d{padding:0 0 1.5rem;background:var(--paper);position:relative;z-index:2}
+.lede-h2{margin-bottom:.5rem}
+.lede-c > .wrap{display:flex;flex-direction:column}
+.lede-h2{order:1}
+.lede-intro{order:2;color:var(--mute);max-width:76ch}
+.lede-c .lb{order:3}
+.lede-d .note{margin-bottom:1.3rem}
+.lede-d .jump{margin:0;border-bottom:0;padding-top:0}
+.lede-d .toc{margin-bottom:0}
+
+@media(max-width:760px){
+  .lede-a{order:1}
+  .lede-y{order:2}
+  .lede-c{order:3}
+  .lede-b{order:4}
+  .lede-d{order:5}
+
+  /* ---- reclaim the fold, top to bottom ---------------------------------- */
+  /* Top strip: two wrapped lines -> one. The disclosure stays, it just fits. */
+  .topstrip{font-size:.66rem}
+  .topstrip .wrap{padding-top:.32rem;padding-bottom:.32rem;line-height:1.4}
+  .ts-lg{display:none}
+  .ts-sm{display:inline}
+
+  /* Header: tighter, and the tagline is decoration we can afford to lose. */
+  .hdr-in{padding-top:.35rem;padding-bottom:.35rem;gap:.5rem}
+  .brand-mark{width:31px;height:31px;font-size:12px}
+  .brand-word{font-size:1rem}
+  .brand-tag{display:none}
+  .nav a{padding:.38rem .5rem;font-size:.845rem}
+  .nav .nav-cta{padding:.4rem .75rem}
+
+  /* Eyebrow duplicates the byline underneath it. Drop it on small screens. */
+  .lede-a .eyebrow{display:none}
+
+  .lede-a{padding:1.35rem 0 1.3rem}
+  .lede-a h1{font-size:1.68rem;line-height:1.14;letter-spacing:-.022em;margin-bottom:.3em}
+  .lede-y .byline{margin-top:0;padding-top:.6rem;font-size:.76rem;gap:.35rem;line-height:1.45}
+  .lede-y .byline-av{width:26px;height:26px;font-size:10px}
+
+  .lede-c{padding:1.15rem 0 1.5rem}
+  .lede-h2{font-size:1.28rem;margin-bottom:.35rem}
+  /* The caption moves under the table on mobile — moved, not hidden — which
+     is the last ~63px needed to bring the first CTA to the fold. */
+  .lede-intro{order:4;font-size:.85rem;margin:.85rem 0 0}
+  .lede-b{padding:1.4rem 0 1.8rem;border-bottom:1px solid rgba(255,255,255,.12)}
+  .lede-y{padding:0 0 .7rem}
+  .lede-b::before{content:"";display:block;height:0}
+  .lede-lead{font-size:1rem}
+
+  /* ---- leaderboard: one stacked card per operator -----------------------
+     Below 760px the five-column table stops being a table and becomes a card:
+     rank and badge on one line, then logo, name, score, the offer panel and a
+     full-width CTA. display:contents flattens .lb-brand/.lb-score/.lb-cta so
+     their children become grid items of the card and can be ordered freely.
+     ---------------------------------------------------------------------- */
+  .lb{border:0;background:none;box-shadow:none;overflow:visible}
+  .lb-head{display:none}
+  .lb-row,.lb-row:nth-child(even),.lb-row--top{
+    display:grid;grid-template-columns:1fr auto;align-items:center;
+    gap:.55rem .5rem;padding:1.05rem 1rem 1.1rem;margin-bottom:.85rem;
+    background:var(--card);border:1px solid var(--line-hi);border-radius:16px;
+    box-shadow:0 2px 10px rgba(19,28,46,.06);text-align:center;
+  }
+  .lb-row--top{border:2px solid var(--copper);box-shadow:0 4px 16px rgba(194,112,58,.16)}
+  .lb-row--top::before{display:none}
+  .lb-row:first-child{border-top:1px solid var(--line-hi)}
+  .lb-row--top:first-child{border-top:2px solid var(--copper)}
+  .lb-brand,.lb-score,.lb-cta{display:contents}
+
+  .lb-rank{order:1;grid-column:1;justify-self:start;
+    font:800 1.85rem/1 var(--disp);color:var(--navy);letter-spacing:-.04em}
+  .lb-badge{order:2;grid-column:2;justify-self:end;display:block;margin:0}
+  .lb-badge .chip{font-size:.66rem;padding:.34rem .7rem;border-radius:var(--r-pill);font-weight:800}
+
+  .lb-logo{order:3;grid-column:1/-1;height:auto;min-height:74px;padding:.7rem 1rem;
+    margin:.35rem auto .1rem;max-width:230px;width:100%;border-radius:12px}
+  .lb-logo img{max-height:52px}
+
+  .lb-brand .lb-name{order:4;grid-column:1/-1;display:block;margin:0;
+    font:800 1.32rem/1.2 var(--disp)}
+  .lb-sub{order:5;grid-column:1/-1;font-size:.86rem;margin:.1rem 0 .35rem;color:var(--mute)}
+
+  .lb-bar{order:6;grid-column:1/-1;height:7px;border-radius:4px;margin:0}
+  .lb-bar i{background:linear-gradient(90deg,var(--copper),var(--amber))}
+  /* "Our score" pinned left, the value and /10 grouped hard right. The value
+     is an anonymous text node, so margin-right:auto on ::before is what keeps
+     the two numerals together rather than space-between spreading all three. */
+  .lb-score-top{order:7;grid-column:1/-1;display:flex;align-items:baseline;
+    justify-content:flex-end;gap:.1rem;font-size:1.36rem;margin-bottom:.3rem}
+  .lb-score-top::before{content:"Our score";margin-right:auto;
+    font:600 .97rem/1 var(--sans);color:var(--mute);letter-spacing:0}
+  .lb-score-top span{font-size:.8rem}
+
+  /* The offer panel — the single most important element on the card. */
+  .lb-bonus{order:8;grid-column:1/-1;margin:.2rem 0 .1rem;padding:.85rem .9rem .8rem;
+    background:rgba(232,163,60,.10);border:1px solid rgba(194,112,58,.38);
+    border-radius:12px;font-size:1.02rem;font-weight:700;color:var(--ink);line-height:1.35}
+  .lb-bonus b{display:block;font:800 .7rem/1 var(--sans);text-transform:uppercase;
+    letter-spacing:.11em;color:var(--copper-lo);margin-bottom:.5rem}
+  .lb-bonus b::after{content:"";display:none}
+  .lb-bonus b::before{content:"\2022  ";color:var(--amber)}
+  .lb-claim{display:inline-block;margin-top:.65rem;font:700 .9rem/1 var(--sans);
+    color:var(--copper-lo);text-decoration:underline;text-underline-offset:5px;
+    text-decoration-thickness:1.5px}
+
+  .lb-cta .btn{order:9;grid-column:1/-1;width:100%;padding:.92rem 1rem;
+    font-size:1.04rem;font-weight:800;border-radius:12px;margin-top:.35rem}
+  .lb-review{order:10;grid-column:1/-1;justify-self:center;font-size:.92rem;
+    text-align:center;margin-top:.15rem}
+
+  /* Chips collapse into one fine-print line, as in the reference card. */
+  .lb-meta{order:11;grid-column:1/-1;display:block;margin:.5rem 0 0;
+    padding-top:.6rem;border-top:1px solid var(--line);
+    font-size:.78rem;color:var(--mute);line-height:1.5}
+  .lb-meta .chip{display:inline;background:none;border:0;padding:0;font-size:inherit;
+    color:inherit;font-weight:600}
+  .lb-meta .chip + .chip::before{content:"\00a0\00b7\00a0"}
+  .lb-terms{order:12;grid-column:1/-1;font-size:.72rem;text-align:center;margin:.15rem 0 0}
+}
+
+/* The narrowest common phones need a little more reclaimed for the first CTA
+   to clear the fold. Everything here is size, not content. */
+@media(max-width:430px){
+  .lede-a{padding:1.05rem 0 .9rem}
+  .lede-a h1{font-size:1.56rem;line-height:1.13}
+  .lede-c{padding:.7rem 0 1.4rem}
+  .lede-h2{font-size:1.18rem;line-height:1.22}
+  .lb-row{padding:.6rem .7rem;gap:.4rem .6rem}
+  .lb-logo{height:44px}
+  .lb-logo img{max-height:34px}
+  .lb-cta .btn{padding:.5rem .8rem}
+  .lb-sub{font-size:.76rem;line-height:1.38;margin-bottom:.2rem}
+  .lb-bonus{font-size:.8rem}
+  .lb-meta{margin-top:.28rem;gap:.22rem}
+  .chip{font-size:.63rem;padding:.15rem .4rem}
+  .lb-terms{margin-top:.15rem}
+  .topstrip{font-size:.63rem}
+  .topstrip .wrap{padding-top:.3rem;padding-bottom:.3rem}
+}
+
+/* iPhone SE and the smallest Androids. A truncated disclosure is not a
+   disclosure, so the strip gives up side padding and a little type size
+   rather than ellipsing. */
+@media(max-width:360px){
+  .topstrip{font-size:.57rem}
+  .topstrip .wrap{padding-left:8px;padding-right:8px}
+  /* Breadcrumbs cost the inner pages ~35px of fold; halve it. */
+  .crumbs{padding:.45rem 0 0;font-size:.74rem}
+  .crumbs + .lede .lede-a{padding-top:.95rem}
+}
+
+/* ==========================================================================
+   Full-site menu (hamburger).
+
+   A <details>/<summary> disclosure, so it works with no JavaScript and is
+   keyboard-accessible for free — <summary> is focusable and toggles on
+   Enter/Space natively.
+
+   On mobile it REPLACES the horizontally-scrolling nav strip, which cut links
+   off after "Fast P…". That also collapses the mobile header from two rows to
+   one, which hands ~39px back to the fold.
+   ========================================================================== */
+/* The hamburger is the MOBILE navigation. Above 1100px the nested nav carries
+   every page on the site, so the button is redundant there and is hidden. */
+.menu{display:none;position:static;margin-left:auto;flex:0 0 auto}
+@media(max-width:1100px){.menu{display:block}}
+.menu > summary{
+  display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;list-style:none;
+  padding:.5rem .85rem;border-radius:var(--r-pill);border:1px solid var(--line-hi);
+  background:var(--card);color:var(--ink);font:700 .875rem/1 var(--sans);
+  -webkit-tap-highlight-color:transparent;
+}
+.menu > summary::-webkit-details-marker{display:none}
+.menu > summary:hover{background:var(--haze);border-color:var(--navy-3)}
+.menu > summary:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+
+/* Three bars that become an X when open — drawn in CSS, no image, no JS. */
+.menu-bars{position:relative;width:16px;height:12px;flex:0 0 auto}
+.menu-bars::before,.menu-bars::after,.menu-bars{background:none}
+.menu-bars::before,.menu-bars::after{
+  content:"";position:absolute;left:0;right:0;height:2px;border-radius:2px;
+  background:var(--ink);transition:transform .18s var(--ease),top .18s var(--ease);
+}
+.menu-bars::before{top:0;box-shadow:0 5px 0 var(--ink)}
+.menu-bars::after{top:10px}
+.menu[open] > summary .menu-bars::before{top:5px;transform:rotate(45deg);box-shadow:none}
+.menu[open] > summary .menu-bars::after{top:5px;transform:rotate(-45deg)}
+.menu[open] > summary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.menu[open] > summary .menu-bars::before,
+.menu[open] > summary .menu-bars::after{background:#fff}
+
+.menu-panel{
+  position:absolute;left:0;right:0;top:100%;z-index:120;
+  background:var(--card);border-top:1px solid var(--line);
+  box-shadow:0 24px 48px -18px rgba(19,28,46,.28);
+  max-height:calc(100vh - 100px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:1.4rem 0 1.6rem;
+}
+.menu-grid{columns:200px 5;column-gap:1.7rem}
+.menu-col{break-inside:avoid;margin:0 0 1.25rem}
+.menu-col h2{
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.11em;font-weight:800;
+  color:var(--faint);margin:0 0 .5rem;padding-bottom:.4rem;border-bottom:1px solid var(--line);
+}
+.menu-col ul{list-style:none;margin:0;padding:0}
+.menu-col li{margin:0}
+.menu-col a{
+  display:block;padding:.34rem 0;font-size:.885rem;color:var(--text);
+  text-decoration:none;line-height:1.35;
+}
+.menu-col a:hover{color:var(--link);text-decoration:underline}
+.menu-col a[aria-current]{color:var(--navy);font-weight:700}
+.menu-foot{
+  margin:1.3rem 0 0;padding-top:1rem;border-top:1px solid var(--line);
+  font-size:.78rem;color:var(--mute);
+}
+
+@media(max-width:1100px){
+  /* The scrolling strip is what cut links off. Replace it outright. */
+  .hdr-in{flex-wrap:nowrap;padding-top:.5rem;padding-bottom:.5rem}
+  .nav{display:none}
+  .menu{margin-left:auto}
+  .menu-panel{max-height:calc(100vh - 88px)}
+  .menu-grid{columns:160px 2;column-gap:1.2rem}
+}
+@media(max-width:760px){
+  .hdr-in{padding-top:.4rem;padding-bottom:.4rem}
+  .menu > summary{padding:.45rem .7rem;font-size:.84rem}
+  .menu-lbl{display:none}          /* icon only once space is tight */
+  .menu > summary{gap:0}
+  .menu-panel{padding:1.1rem 0 1.3rem}
+  .menu-col a{padding:.4rem 0}     /* a comfortable 44px-ish tap target */
+}
+
+/* ==========================================================================
+   Above-the-fold budget on phones.
+   The brief: H1, byline (author + updated), the toplist H2 and the affiliate
+   card must all clear the fold, with the first CTA reachable without scrolling.
+   Measured at 390x650: the first CTA sat at 783px. Everything below is size,
+   never content — nothing is hidden, only tightened.
+   ========================================================================== */
+@media(max-width:560px){
+  /* A shorter sticky header buys 15px back across every page. */
+  .hdr-in{min-height:52px}
+  .brand-mark{width:32px;height:32px;font-size:13px}
+  .brand-word{font-size:.97rem}
+  .topstrip{font-size:.7rem}
+
+  /* Headline block */
+  .lede-a{padding:.75rem 0 .7rem}
+  .lede-a h1{font-size:1.34rem;line-height:1.11;letter-spacing:-.018em;margin-bottom:.2em}
+  .lede-y .byline{margin-top:0;padding-top:.45rem;font-size:.725rem;gap:.3rem;line-height:1.4}
+  .lede-y .byline-av{width:22px;height:22px;font-size:9px}
+  .lede-y .byline .sep{margin:0 .1rem}
+
+  /* Toplist heading */
+  .lede-c{padding:.4rem 0 1rem}
+  .lede-h2{font-size:1.1rem;line-height:1.2;margin-bottom:.3rem}
+
+  /* The card: reclaim height without dropping any element */
+  .lb-row,.lb-row:nth-child(even),.lb-row--top{padding:.85rem .85rem .9rem;gap:.4rem .45rem;margin-bottom:.7rem}
+  .lb-rank{font-size:1.5rem}
+  .lb-badge .chip{font-size:.62rem;padding:.28rem .6rem}
+  .lb-logo{min-height:48px;padding:.4rem .75rem;max-width:186px;margin:.15rem auto 0}
+  .lb-logo img{max-height:40px}
+  .lb-brand .lb-name{font-size:1.16rem}
+  .lb-sub{font-size:.79rem;margin:.05rem 0 .25rem}
+  .lb-score-top{font-size:1.18rem;margin-bottom:.2rem}
+  .lb-score-top::before{font-size:.88rem}
+  .lb-bonus{padding:.6rem .7rem .55rem;font-size:.92rem;margin:.1rem 0 0}
+  .lb-bonus b{font-size:.64rem;margin-bottom:.32rem}
+  .lb-claim{margin-top:.45rem;font-size:.84rem}
+  .lb-cta .btn{padding:.8rem 1rem;font-size:.99rem;margin-top:.25rem}
+  .lb-review{font-size:.86rem}
+  .lb-meta{margin-top:.4rem;padding-top:.45rem;font-size:.74rem}
+}
+
+/* Re-assert the smallest-phone overrides, since the above-the-fold block is
+   later in the cascade and would otherwise win at 360px. */
+@media(max-width:360px){
+  .topstrip{font-size:.57rem}
+  .lede-a h1{font-size:1.26rem}
+  .lb-logo{max-width:172px}
+}

@@ -1,0 +1,3 @@
+# 301s for retired URLs. Apache/LiteSpeed only — see docs/DEPLOY-REDIRECTS.md
+RewriteEngine On
+RewriteRule ^instant-withdrawals/?$ /fast-payout-casinos/ [R=301,L]
