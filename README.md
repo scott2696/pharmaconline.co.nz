@@ -29,9 +29,15 @@ in Terms, Privacy, the cookie policy and the footer, where it makes statements a
 liable and who controls your data. Replace it with the registered company name before launch
 — those are legal claims about a company that does not exist under this name.
 
-Still to do: add a `CNAME` if deploying to GitHub Pages, and set up `editor@` and
-`complaints@` mailboxes. The contact form posts to FormSubmit and needs its one-time email
-confirmation.
+Deployment is live: GitHub Pages serves `main` from the branch root (classic build, no
+Actions) at `pharmaconline.co.nz`, with `CNAME` committed on `main` and HTTPS enforced. Note
+that Pages honours neither `.htaccess` nor `_redirects`, so the `/instant-withdrawals/` 301
+falls back to the meta-refresh stub — see `docs/DEPLOY-REDIRECTS.md`. Jekyll's underscore rule
+keeps `_build/` and `_source/` off the served site; do not add `.nojekyll` without checking
+that, as it would publish both.
+
+Still to do: set up `editor@` and `complaints@` mailboxes. The contact form posts to FormSubmit
+and needs its one-time email confirmation.
 
 **2. Check the author photo licence.** `images/authors/` contains five headshots supplied for
 the masthead. Stock licences frequently do *not* cover depicting a person as a named author,
