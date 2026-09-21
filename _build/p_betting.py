@@ -308,7 +308,7 @@ def sportsbooks():
       [[op_cell(BY["rooster-bet"]), "<b>9.0</b>", "Up to NZ$5,000 + 300 FS", "6&times; free bet",
         "&mdash;", '<span class="chip chip--yes">Deepest</span>',
         '<span class="chip chip--yes">NZD</span>', "NZ$8,000"],
-       [op_cell(BY["gunsbet"]), "8.6", "285% up to &euro;7,500", "<b>40&times; bonus</b>", "1.80+",
+       [op_cell(BY["gunsbet"]), "8.6", "285% up to NZ$14,700", "<b>40&times; bonus</b>", "1.80+",
         '<span class="chip">Good</span>', '<span class="chip chip--no">EUR</span>', "<b>&euro;4,000</b>"],
        [op_cell(BY["betandplay"]), "8.5", "100% up to NZ$500", "<b>5&times;</b>", "1.80+",
         '<span class="chip">Moderate</span>', '<span class="chip chip--yes">NZD</span>', "NZ$7,000"],
@@ -356,7 +356,7 @@ Zealand framework, with no domestic recourse if a bet is voided or an account re
 bonus needs NZ$2,500 of betting, which a normal punter completes in weeks.
 <a href="/casino-reviews/rooster-bet/">Rooster Bet</a> asks 6&times; on a free bet, similarly finishable.</p>
 <p><a href="/casino-reviews/gunsbet/">Gunsbet</a> asks <b>40&times; on the bonus</b>, casino-style. On its
-&euro;7,500 headline that is <b>{B.money(B.price(BY["gunsbet"])["turnover"])}</b> of turnover &mdash; the
+NZ$14,700 headline that is <b>{B.money(B.price(BY["gunsbet"])["turnover"])}</b> of turnover &mdash; the
 largest figure anywhere in our ledger, and not a serious offer.</p>
 </div>''', ident="compare", haze=True)}
 

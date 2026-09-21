@@ -135,8 +135,7 @@ def review(op):
           '<h3>The offer, priced</h3>'
           + table(["The advertised offer", "What it actually requires"],
               [["Headline", f"<b>{esc(op.get('casino_bonus') or '&mdash;')}</b>"],
-               ["In New Zealand dollars", f"{B.money(p['bonus_nzd'])}"
-                + (f" (converted from {p['face']:,.0f} {p['currency']})" if p["currency"] != "NZD" else "")],
+               ["In New Zealand dollars", f"{B.money(p['bonus_nzd'])}"],
                ["Wagering basis", f"{p['mult']:g}&times; on {basis}"],
                ["<b>Turnover required</b>", f"<b>{B.money(p['turnover'])}</b>"],
                ["Expected cost to clear, at 96% RTP", f"<b>{B.money(p['cost'])}</b>"],

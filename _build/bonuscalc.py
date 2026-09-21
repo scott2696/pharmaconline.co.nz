@@ -24,7 +24,7 @@ import re
 
 # Mid-market, captured 2026-09-20. Republished monthly with the month stamp.
 FX_DATE = "20 September 2026"
-FX = {"EUR": 1.84, "USD": 1.68, "USDT": 1.68, "NZD": 1.0}
+FX = {"EUR": 1.96, "USD": 1.68, "USDT": 1.68, "NZD": 1.0}
 
 # The round-trip conversion cost a New Zealand player carries on a euro or USD
 # balance: card/e-wallet conversion in, and again on withdrawal. This is the
@@ -52,6 +52,12 @@ def parse_bonus(op):
     if m:
         cur = {"NZ$": "NZD", "€": "EUR", "$": "NZD"}[m.group(1)]
         face = _num(m.group(2))
+        # We quote every headline in NZD. Where the operator actually banks in
+        # another currency it says so in bonus_currency, which keeps the FX
+        # spread on the ledger instead of vanishing with the euro sign.
+        acct = op.get("bonus_currency")
+        if acct and cur == "NZD":
+            return acct, round(face / FX[acct]), round(face)
         return cur, face, round(face * FX[cur])
     m = re.search(r"([\d,]+)\s*USDT", b)
     if m:

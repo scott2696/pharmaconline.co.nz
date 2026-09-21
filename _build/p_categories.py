@@ -424,7 +424,7 @@ def fastpayout():
         m = re.search(r"([\d,]+)", lim.replace("&euro;", "").replace("NZ$", ""))
         if m and "week" in lim.lower():
             v = int(m.group(1).replace(",", ""))
-            wk = round(v * (1.84 if "&euro;" in lim or "€" in lim else 1.0))
+            wk = round(v * (1.96 if "&euro;" in lim or "€" in lim else 1.0))
         caps.append([
             op_cell(op),
             esc(op.get("payout_crypto") or "&mdash;"),
@@ -1583,7 +1583,7 @@ tends to carry very low minimums, which matters more to most players than a four
    "not check."),
   ("Confirm the currency at the table",
    "A euro-denominated site means euro-denominated table limits, so a &lsquo;&euro;1 minimum&rsquo; is "
-   "NZ$1.84 and your balance converts twice across the round trip. On live play, where sessions are long "
+   "NZ$1.96 and your balance converts twice across the round trip. On live play, where sessions are long "
    "and stakes higher, the spread adds up."),
   ("Decline the bonus if live is your main game",
    "Covered above and worth repeating because it is the most expensive mistake available in this category."),
@@ -1642,7 +1642,7 @@ about cost, and it is counter-intuitive enough to be worth stating plainly.</p>
    "Table availability collapses in the New Zealand evening, which is Europe&rsquo;s small hours",
    "You can be queued out of a full table at popular limits",
    "No demo mode &mdash; every hand is real money",
-   "Euro-denominated sites quote euro limits, so a &lsquo;&euro;1 table&rsquo; is NZ$1.84"])}
+   "Euro-denominated sites quote euro limits, so a &lsquo;&euro;1 table&rsquo; is NZ$1.96"])}
 <div class="prose">
 <p class="lead"><b>The summary:</b> live blackjack at NZ$10 a hand costs about NZ$3 an hour. A pokie at
 NZ$1 a spin costs about NZ$24. The game that demands a bigger minimum bet takes far less of your money,
@@ -1715,7 +1715,7 @@ because it asks for it ten times less often.</p>
        ("Do live casinos have NZD tables?",
         "<p>Only where the operator holds your balance in New Zealand dollars &mdash; the table limits are "
         "denominated in the account currency. At euro-denominated sites a &lsquo;&euro;1 minimum&rsquo; is "
-        "about NZ$1.84, and you pay a conversion spread of roughly 4.8% across the round trip. The "
+        "about NZ$1.96, and you pay a conversion spread of roughly 4.8% across the round trip. The "
         "currency column in our <a href='/online-casinos/'>comparison table</a> shows which sites bank in "
         "NZD.</p>")],
       [("Are live dealer games rigged?",

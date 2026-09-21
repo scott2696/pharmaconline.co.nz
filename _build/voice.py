@@ -16,7 +16,7 @@ V = {
 
 "crownslots": dict(
   tagline="The largest match on the page, and the most expensive to finish",
-  sub="390% to &euro;3,700 &mdash; euro-denominated, crypto-quick, NZ$272k of turnover",
+  sub="390% to NZ$7,250 &mdash; euro-denominated, crypto-quick, NZ$290k of turnover",
   pros=[
     "The 390% match is the largest percentage offer in this market, and the 175 spins land on Pragmatic Play titles rather than filler nobody has heard of",
     "Crypto withdrawals are genuinely quick at one to six hours, which is top-three among the sites we cover",
@@ -176,7 +176,7 @@ V = {
 
 "gunsbet": dict(
   tagline="A sportsbook first, with the worst bonus arithmetic we measured",
-  sub="285% to &euro;7,500 &mdash; NZ$552k of turnover, no crypto, euro balance",
+  sub="285% to NZ$14,700 &mdash; NZ$588k of turnover, no crypto, euro balance",
   pros=[
     "A genuinely deep sportsbook with strong coverage of NPC, Super Rugby and international football, and competitive in-play markets",
     "Established in 2016, which makes it one of the longer-running brands here &mdash; longevity is weak evidence but it is not no evidence",
@@ -195,7 +195,7 @@ V = {
   best_for="Sports bettors who will decline the casino offer entirely",
   narr=[
     ("The worst offer in our ledger, and why",
-     "<p>285% up to &euro;7,500 converts to roughly NZ$13,800 of bonus. At 40x on the bonus, collecting the "
+     "<p>285% up to NZ$14,700 converts to roughly NZ$14,700 of bonus. At 40x on the bonus, collecting the "
      "maximum requires <b>NZ$552,000</b> of turnover, at an expected cost of more than NZ$22,000 on a 96% "
      "RTP game.</p>"
      "<p>To put that in human terms: at NZ$1 a spin and 600 spins an hour, clearing it would take about 920 "
@@ -212,7 +212,7 @@ V = {
     ("No crypto, and a tight cap",
      "<p>Gunsbet supports no cryptocurrency at all, which removes the fastest withdrawal rail available in "
      "this market. Your best case is an e-wallet at twelve to twenty-four hours.</p>"
-     "<p>Worse, the weekly withdrawal ceiling is &euro;4,000 &mdash; about NZ$7,360, the tightest of any "
+     "<p>Worse, the weekly withdrawal ceiling is &euro;4,000 &mdash; about NZ$7,840, the tightest of any "
      "brand we cover. A NZ$40,000 win takes six weeks to reach you. Combined with the euro conversion "
      "spread on every one of those six payments, a large win at Gunsbet is a slow and lossy experience.</p>"),
     ("The legal position on the sports side",

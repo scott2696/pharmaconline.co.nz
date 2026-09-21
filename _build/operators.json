@@ -12,9 +12,9 @@
     "betting_url": "",
     "rating": 8.9,
     "tagline": "Biggest headline welcome package",
-    "sub": "390% up to €3,700 + 175 free spins · crypto-friendly",
-    "casino_bonus": "390% up to €3,700 + 175 free spins",
-    "casino_bonus_terms": "Approx. NZ$6,800 · staged across the first deposits",
+    "sub": "390% up to NZ$7,250 + 175 free spins · crypto-friendly",
+    "casino_bonus": "390% up to NZ$7,250 + 175 free spins",
+    "casino_bonus_terms": "Approx. NZ$7,250 · staged across the first deposits",
     "sports_bonus": "",
     "wagering": "40x bonus",
     "min_deposit": "NZ$35",
@@ -56,7 +56,8 @@
     ],
     "bar": 89,
     "order": 1,
-    "list": "casino"
+    "list": "casino",
+    "bonus_currency": "EUR"
   },
   {
     "slug": "spinjo",
@@ -191,10 +192,10 @@
     "betting_url": "https://gunsbetlink.com/hiurykdlb",
     "rating": 8.6,
     "tagline": "Biggest sportsbook welcome offer",
-    "sub": "285% up to €7,500 + 285 free spins",
-    "casino_bonus": "285% up to €7,500 + 285 free spins",
-    "casino_bonus_terms": "Approx. NZ$13,900 · staged deposits",
-    "sports_bonus": "285% up to €7,500 + 285 free spins",
+    "sub": "285% up to NZ$14,700 + 285 free spins",
+    "casino_bonus": "285% up to NZ$14,700 + 285 free spins",
+    "casino_bonus_terms": "Approx. NZ$14,700 · staged deposits",
+    "sports_bonus": "285% up to NZ$14,700 + 285 free spins",
     "wagering": "40x bonus",
     "min_deposit": "NZ$35",
     "licence": "Curaçao",
@@ -245,7 +246,8 @@
     "bar": 86,
     "order": 4,
     "list": "sports",
-    "plate": "#19161F"
+    "plate": "#19161F",
+    "bonus_currency": "EUR"
   },
   {
     "slug": "lucky7even",
