@@ -12,9 +12,9 @@ Primary sources (all linked from /nz-online-casino-law/):
   Gambling Act 2003 — the pre-existing framework, still operative
   Inland Revenue — problem gambling levy, offshore gambling duty
 """
-import datetime
+import datetime, os
 
-TODAY = datetime.date.today()
+TODAY = datetime.date.fromisoformat(os.environ.get("BUILD_DATE") or datetime.date.today().isoformat())
 
 # (date, stage, detail, kind)
 STAGES = [

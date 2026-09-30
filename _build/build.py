@@ -77,7 +77,7 @@ BLOCKED = ["AhrefsBot", "SemrushBot", "MJ12bot", "DotBot", "Rogerbot",
 
 
 def robots():
-    out = [f"# robots.txt for {SITE}", f"# {NAME} — updated {datetime.date.today().isoformat()}", ""]
+    out = [f"# robots.txt for {SITE}", f"# {NAME} — updated {datetime.date.fromisoformat(os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()).isoformat()}", ""]
     for ua in BLOCKED:
         out += [f"User-agent: {ua}", "Disallow: /", ""]
     out += ["# Everything else is welcome.",

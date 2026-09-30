@@ -33,9 +33,9 @@ LOGO_MARK = LOGO_NAME[0].upper()
 # Freshness stamp. ONE edit a month: change MONTH (and YEAR in January), rebuild,
 # and every title, description, H1 and "updated" line follows. A stale month in a
 # title is worse than no month at all, so this is a standing commitment.
-MONTH, YEAR = "September", "2026"
+MONTH, YEAR = "October", "2026"
 MONTH_YEAR = f"{MONTH} {YEAR}"
-NEXT_REVIEW = "20 October 2026"
+NEXT_REVIEW = "1 November 2026"
 
 # Resolved per page in write() from the content-hash manifest, so a page that did
 # not change keeps the date it already had. "Last updated" then means something.
@@ -1134,7 +1134,7 @@ try:
     LASTMOD = json.load(open(_LASTMOD_PATH))
 except Exception:
     LASTMOD = {}
-TODAY = datetime.date.today().isoformat()
+TODAY = datetime.date.fromisoformat(os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()).isoformat()
 _NZ_MONTHS = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"]
 PAGES = []
