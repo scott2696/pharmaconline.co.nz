@@ -1,5 +1,5 @@
 # robots.txt for https://pharmaconline.co.nz
-# pharmaconline.co.nz — updated 2026-09-21
+# pharmaconline.co.nz — updated 2026-10-01
 
 User-agent: AhrefsBot
 Disallow: /
